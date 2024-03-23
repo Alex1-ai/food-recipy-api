@@ -1,4 +1,4 @@
----
+--- # the --- signifies that it is a yaml file
 name: Checks
 
 on: [push]
@@ -13,9 +13,11 @@ jobs:
         with: 
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN}}
+         # checkout is to put the codes into the ubuntu we are using here 
       - name: Checkout
         uses: actions/checkout@v2
+        # ubuntu-20.04 automatically comes with a preinstalled docker so we don't have to install it again
       - name: Test
-        run: docker-compose run --rm app sh -c "python manage.py test"
+        run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"
       - name: Lint
         run: docker-compose run --rm app sh -c "flake8"

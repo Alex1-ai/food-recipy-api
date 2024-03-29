@@ -8,14 +8,14 @@ LABEL maintainer="https://github.com/Alex1-ai/"
 
 # THIS TELL PYTHON NOT TO BUFFER THE OUTPUT
 # SO THAT IT PREVENT ANY DELAYS SO WE CAN SEE LOG IMMEDIATELY
-ENV PYTHONUNBUFFERED 1
+# ENV PYTHONUNBUFFERED 1
 
 # COPYING ALL OUR REQUIREMENTS AND FILES FROM LOCAL TO DOCKER CONTAINER
-COPY ./requirements.txt /tmp/requirements.txt
-COPY ./requirements.dev.txt /tmp/requirements.dev.txt
-COPY ./app /app
-WORKDIR /app
-EXPOSE 8000
+# COPY ./requirements.txt /tmp/requirements.txt
+# COPY ./requirements.dev.txt /tmp/requirements.dev.txt
+# COPY ./app /app
+# WORKDIR /app
+# EXPOSE 8000
 
 
 # RUNNING COMMANDS IN PYTHON

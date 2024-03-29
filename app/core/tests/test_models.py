@@ -1,6 +1,8 @@
 """"
 Tests for models.
 """
+# we use to replace the normal is been set
+from unittest.mock import patch
 from decimal import Decimal
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -72,3 +74,21 @@ class ModelTests(TestCase):
         tag = models.Tag.objects.create(user=user, name="Tag1")
 
         self.assertEqual(str(tag), tag.name)
+
+    def test_create_ingredient(self):
+        """Test creating an ingredient is successful"""
+        user = create_user()
+        ingredient = models.Ingredient.objects.create(
+            user=user,
+            name="Ingredient"
+        )
+
+        self.assertEqual(str(ingredient), ingredient.name)
+
+    @patch('core.models.uuid.uuid4')
+    def test_recipe_file_name_uuid(self, mock_uuid):
+        """Test generating image path."""
+        uuid = 'test-uuid'
+        mock_uuid.return_value = uuid
+        file_path = models.recipe_image_file_path(None, "example.jpg")
+        self.assertEqual(file_path, f'uploads/recipe/{uuid}.jpg')
